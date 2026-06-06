@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SOC Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>SOC Monitoring Dashboard</h1>
+
+    <div class="grid">
+
+      <div class="card">
+        <h2>Devices</h2>
+        <div id="devices"></div>
+      </div>
+
+      <div class="card">
+        <h2>Network Events</h2>
+        <div id="events"></div>
+      </div>
+
+      <div class="card">
+        <h2>Security Incidents</h2>
+        <div id="incidents"></div>
+      </div>
+
+      <div class="card">
+        <h2>Attack Stats</h2>
+        <div id="chart"></div>
+      </div>
+
+      <div class="card">
+        <h2>Live SOC Feed</h2>
+        <div id="live"></div>
+      </div>
+
+      <div class="card">
+        <button onclick="simulate()">Simulate Attack</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    async function simulate() {
+      await fetch("http://127.0.0.1:8000/api/simulate/", {
+        method: "POST"
+      });
+
+      document.getElementById("live").innerHTML +=
+        "<p>⚠ Manual attack simulation triggered</p>";
+    }
+  </script>
+</body>
+
+</html>
