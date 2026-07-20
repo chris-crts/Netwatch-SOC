@@ -1,5 +1,5 @@
-const socket = new WebSocket("ws://127.0.0.1:8000/ws/soc/");
-const base_url = "http://127.0.0.1:8000"
+const socket = new WebSocket('ws://dev_ip:8000/ws/soc/');
+const base_url = "http://dev_ip:8000"
 
 socket.onmessage = function(event) {
     const data = JSON.parse(event.data);
