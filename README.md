@@ -1,6 +1,6 @@
 Project Overview
 
-      The Netwatch SOC System is a LAN‑based security and monitoring solution designed to safeguard local networks and connected
+The Netwatch SOC System is a LAN‑based security and monitoring solution designed to safeguard local networks and connected
 devices. It provides real‑time visibility, traffic analysis, and proactive defense against malicious activities such as unauthorized port scans, suspicious downloads, and access to harmful websites.
 
 _____________________________________________________________________________________________________________________________
