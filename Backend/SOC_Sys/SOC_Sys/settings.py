@@ -71,9 +71,9 @@ WSGI_APPLICATION = 'SOC_Sys.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'SOC_App_DataBase',
-        'USER': 'keith_user',
-        'PASSWORD': '113728cortes',
+        'NAME': 'Your_DataBase',
+        'USER': 'ur_username',
+        'PASSWORD': 'your_pass',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
