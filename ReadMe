@@ -3,12 +3,13 @@ Project Overview
       The Netwatch SOC System is a LAN‑based security and monitoring solution designed to safeguard local networks and connected
 devices. It provides real‑time visibility, traffic analysis, and proactive defense against malicious activities such as unauthorized port scans, suspicious downloads, and access to harmful websites.
 
-__________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 
-c:\Users\buddy\OneDrive\Pictures\Screenshots\Screenshot 2026-07-21 164736.png 
-c:\Users\buddy\OneDrive\Pictures\Screenshots\Screenshot 2026-07-21 164709.png c:\Users\buddy\OneDrive\Pictures\Screenshots\Screenshot 2026-07-21 164724.png
+![Screenshot 1](screenshots/Screenshot-2026-07-21-164736.png)
+![Screenshot 2](screenshots/Screenshot-2026-07-21-164709.png)
+![Screenshot 3](screenshots/Screenshot-2026-07-21-164724.png)
 
-__________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 Architecture
 Core Engine: Built to run on a dedicated host (e.g., laptop or server) with a static IP inside the LAN.
 
@@ -20,7 +21,7 @@ Device Registry: Automatically discovers and tracks all devices connected to the
 
 Dashboard: Web‑based interface for administrators to view logs, alerts, and device activity.
 
-__________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 
 🔑 Features
 Device Discovery: Identifies all endpoints connected to the LAN.
@@ -35,7 +36,7 @@ Scalability: Supports multiple clients and servers within the LAN.
 
 Manageability: Provides configuration options via web UI or CLI.
 
-__________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 
 🎯 Purposes & Uses
 Network Security: Protects against intrusions, scans, and malware downloads.
@@ -46,7 +47,7 @@ Visibility: Gives administrators full awareness of network activity.
 
 Incident Response: Logs and alerts suspicious behavior for rapid action.
 
-__________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 
 🔌 Connecting to Modem/Router
 Assign a static IP to the SOC host (e.g., 192.168.1.50).
@@ -57,7 +58,7 @@ Configure port mirroring or run the SOC inline to capture all traffic.
 
 Launch the SOC dashboard to view connected devices and their activity.
 
-__________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 
 📡 Activity Tracking
 Websites Visited: Logs DNS queries and HTTP/HTTPS requests.
@@ -67,7 +68,7 @@ Files Downloaded: Monitors traffic patterns and file transfers.
 Port Scans: Detects sequential SYN requests typical of Nmap probing.
 
 Behavioral Analysis: Flags anomalies compared to baseline device behavior.
-__________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 
 🛡️ Security Enforcement
 Real‑time Alerts: Notifies administrators of suspicious activity.
@@ -78,7 +79,7 @@ Audit Logs: Maintains detailed records for forensic analysis.
 
 Continuous Monitoring: Automates scans and checks to ensure ongoing safety.
 
-__________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 🚀 Getting Started
 Clone the repository and install dependencies.
 
