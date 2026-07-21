@@ -7,14 +7,13 @@ ________________________________________________________________________________
 
 ## SOC Dashboard Screenshots
 
-!(https://raw.githubusercontent.com/chris-crts/Netwatch-SOC/main/Backend/SOC_Sys/SOC_App/screenshots/1st_dash.png)
+!(Backend/SOC_Sys/SOC_App/screenshots/1st_dash.png)
 
-!(https://raw.githubusercontent.com/chris-crts/Netwatch-SOC/main/Backend/SOC_Sys/SOC_App/screenshots/2nd_dash.png)
+!(Backend/SOC_Sys/SOC_App/screenshots/2nd_dash.png)
 
-!(https://raw.githubusercontent.com/chris-crts/Netwatch-SOC/main/Backend/SOC_Sys/SOC_App/screenshots/3rd_dash.png)
+!(Backend/SOC_Sys/SOC_App/screenshots/3rd_dash.png)
 
-
-_____________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________
 Architecture
 Core Engine: Built to run on a dedicated host (e.g., laptop or server) with a static IP inside the LAN.
 
