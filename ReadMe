@@ -5,11 +5,12 @@ devices. It provides real‑time visibility, traffic analysis, and proactive def
 
 _____________________________________________________________________________________________________________________________
 
-Backend\SOC_Sys\SOC_App\screenshots\1st_dash.png
+## SOC Dashboard Screenshots
 
-Backend\SOC_Sys\SOC_App\screenshots\2nd_dash.png
+![Dashboard 1](Backend/SOC_Sys/SOC_App/screenshots/1st_dash.png)
+![Dashboard 2](Backend/SOC_Sys/SOC_App/screenshots/2nd_dash.png)
+![Dashboard 3](Backend/SOC_Sys/SOC_App/screenshots/3rd_dash.png)
 
-Backend\SOC_Sys\SOC_App\screenshots\3rd_dash.png
 
 _____________________________________________________________________________________________________________________________
 Architecture
