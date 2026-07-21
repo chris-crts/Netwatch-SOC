@@ -1,5 +1,5 @@
-const BASE_URL = "http://192.168.8.35:8000";
-const WS_URL = "ws://192.168.8.35:8000/ws/soc/";
+const BASE_URL = "http://device_ip:8000";
+const WS_URL = "ws://device_ip:8000/ws/soc/";
 const TOKEN_STORAGE_KEY = "soc_device_token";
 
 let socket = null;
