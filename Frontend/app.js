@@ -145,6 +145,30 @@ async function loadFirewallRules() {
   `, "No firewall rules configured");
 }
 
+async function loadScanAlerts() {
+  const data = await fetchData(`${BASE_URL}/api/scan-alerts/`);
+  const items = data.results || data;
+  renderRows("scanAlerts", items, (i) => `
+    <tr>
+      <td><span class="tag tag--high">${i.incident_type}</span></td>
+      <td>${i.ip_address}</td>
+      <td>${i.description}</td>
+    </tr>
+  `, "No scan attempts detected");
+}
+
+async function loadDeviceActivity() {
+  const data = await fetchData(`${BASE_URL}/api/device-activity/`);
+  const items = data.results || data;
+  renderRows("activity", items, (a) => `
+    <tr>
+      <td>${a.ip_address}</td>
+      <td>${a.domain}</td>
+      <td>${new Date(a.timestamp).toLocaleTimeString()}</td>
+    </tr>
+  `, "No device activity recorded");
+}
+
 async function loadTrafficLog() {
   const data = await fetchData(`${BASE_URL}/api/traffic-logs/`);
   const items = data.results || data;
@@ -164,45 +188,46 @@ async function loadLanStatus() {
   document.getElementById("statEvents").textContent = data.total_events;
   document.getElementById("statIncidents").textContent = data.total_incidents;
   document.getElementById("statBlocked").textContent = data.blocked_ips;
+  document.getElementById("statScanAlerts").textContent = data.scan_alerts;
 }
 
-function drawChart(brute, scan) {
+function drawChart(values) {
   const canvas = document.getElementById("chart");
   const ctx = canvas.getContext("2d");
   const width = canvas.width;
   const height = canvas.height;
   ctx.clearRect(0, 0, width, height);
 
-  const max = Math.max(brute, scan, 1);
-  const barWidth = 70;
-  const gap = 60;
+  const colors = ["#ef4444", "#f5a623", "#4f8cff"];
+  const barWidth = 50;
+  const gap = 30;
   const baseY = height - 30;
+  const max = Math.max(...values.map(v => v.count), 1);
   const scale = (height - 60) / max;
 
-  const bruteHeight = brute * scale;
-  const scanHeight = scan * scale;
-
-  ctx.fillStyle = "#ef4444";
-  ctx.fillRect(40, baseY - bruteHeight, barWidth, bruteHeight);
-
-  ctx.fillStyle = "#f5a623";
-  ctx.fillRect(40 + barWidth + gap, baseY - scanHeight, barWidth, scanHeight);
-
-  ctx.fillStyle = "#7d8b99";
-  ctx.font = "11px 'IBM Plex Mono'";
-  ctx.fillText(String(brute), 40 + barWidth / 2 - 6, baseY - bruteHeight - 8);
-  ctx.fillText(String(scan), 40 + barWidth + gap + barWidth / 2 - 6, baseY - scanHeight - 8);
-  ctx.fillText("Brute force", 20, height - 10);
-  ctx.fillText("Port scan", 40 + barWidth + gap - 10, height - 10);
+  values.forEach((item, index) => {
+    const barHeight = item.count * scale;
+    const x = 30 + index * (barWidth + gap);
+    ctx.fillStyle = colors[index % colors.length];
+    ctx.fillRect(x, baseY - barHeight, barWidth, barHeight);
+    ctx.fillStyle = "#7d8b99";
+    ctx.font = "11px 'IBM Plex Mono'";
+    ctx.fillText(String(item.count), x + barWidth / 2 - 6, baseY - barHeight - 8);
+    ctx.fillText(item.label, x - 4, height - 10);
+  });
 }
 
 async function loadChart() {
   const data = await fetchData(`${BASE_URL}/api/stats/`);
-  drawChart(data.BRUTE_FORCE, data.PORT_SCAN);
-  document.getElementById("chartLegend").innerHTML = `
-    <span><span class="legend-dot" style="background:#ef4444"></span>Brute force: ${data.BRUTE_FORCE}</span>
-    <span><span class="legend-dot" style="background:#f5a623"></span>Port scan: ${data.PORT_SCAN}</span>
-  `;
+  const values = [
+    { label: "Brute force", count: data.BRUTE_FORCE, color: "#ef4444" },
+    { label: "Port scan", count: data.PORT_SCAN, color: "#f5a623" },
+    { label: "Nmap scan", count: data.NMAP_SCAN, color: "#4f8cff" },
+  ];
+  drawChart(values);
+  document.getElementById("chartLegend").innerHTML = values.map(v => `
+    <span><span class="legend-dot" style="background:${v.color}"></span>${v.label}: ${v.count}</span>
+  `).join("");
 }
 
 async function refreshAll() {
@@ -213,6 +238,8 @@ async function refreshAll() {
       loadIncidents(),
       loadFirewallRules(),
       loadTrafficLog(),
+      loadScanAlerts(),
+      loadDeviceActivity(),
       loadLanStatus(),
       loadChart(),
     ]);
