@@ -1,63 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SOC Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="container">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">SOC</span>
+        <div class="brand-text">
+          <h1>Security Operations Center</h1>
+          <p>LAN monitoring &amp; threat detection</p>
+        </div>
+      </div>
+      <div class="pulse" aria-hidden="true">
+        <span class="pulse-bar"></span>
+        <span class="pulse-bar"></span>
+        <span class="pulse-bar"></span>
+        <span class="pulse-bar"></span>
+        <span class="pulse-bar"></span>
+      </div>
+      <div class="topbar-controls">
+        <span id="connectionStatus" class="status-pill status-pill--pending">Connecting</span>
+        <label class="token-field">
+          <span>Device token</span>
+          <input id="deviceToken" type="password" placeholder="Paste LAN device token" autocomplete="off">
+        </label>
+        <button id="saveTokenBtn" class="btn btn--ghost" type="button">Save</button>
+      </div>
+    </div>
+  </header>
 
-    <h1>SOC Monitoring Dashboard</h1>
+  <main class="layout">
+
+    <section class="stat-strip" aria-label="LAN overview">
+      <div class="stat-card">
+        <span class="stat-label">Active devices</span>
+        <span id="statActiveDevices" class="stat-value">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Total events</span>
+        <span id="statEvents" class="stat-value">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Open incidents</span>
+        <span id="statIncidents" class="stat-value">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Blocked IPs</span>
+        <span id="statBlocked" class="stat-value">0</span>
+      </div>
+    </section>
 
     <div class="grid">
 
-      <div class="card">
-        <h2>Devices</h2>
-        <div id="devices"></div>
-      </div>
+      <section class="card card--wide" aria-labelledby="liveFeedTitle">
+        <div class="card-head">
+          <h2 id="liveFeedTitle">Live SOC Feed</h2>
+          <span class="badge">Realtime</span>
+        </div>
+        <div id="live" class="feed"></div>
+      </section>
 
-      <div class="card">
-        <h2>Network Events</h2>
-        <div id="events"></div>
-      </div>
+      <section class="card" aria-labelledby="chartTitle">
+        <div class="card-head">
+          <h2 id="chartTitle">Attack Stats</h2>
+        </div>
+        <canvas id="chart" width="280" height="200"></canvas>
+        <div id="chartLegend" class="chart-legend"></div>
+      </section>
 
-      <div class="card">
-        <h2>Security Incidents</h2>
-        <div id="incidents"></div>
-      </div>
+      <section class="card card--wide" aria-labelledby="eventsTitle">
+        <div class="card-head">
+          <h2 id="eventsTitle">Network Events</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>IP Address</th>
+                <th>Action</th>
+                <th>Service</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="events"></tbody>
+          </table>
+        </div>
+      </section>
 
-      <div class="card">
-        <h2>Attack Stats</h2>
-        <div id="chart"></div>
-      </div>
+      <section class="card" aria-labelledby="incidentsTitle">
+        <div class="card-head">
+          <h2 id="incidentsTitle">Security Incidents</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Severity</th>
+                <th>Type</th>
+                <th>IP</th>
+              </tr>
+            </thead>
+            <tbody id="incidents"></tbody>
+          </table>
+        </div>
+      </section>
 
-      <div class="card">
-        <h2>Live SOC Feed</h2>
-        <div id="live"></div>
-      </div>
+      <section class="card" aria-labelledby="devicesTitle">
+        <div class="card-head">
+          <h2 id="devicesTitle">Devices</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>IP Address</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="devices"></tbody>
+          </table>
+        </div>
+      </section>
 
-      <div class="card">
-        <button onclick="simulate()">Simulate Attack</button>
-      </div>
+      <section class="card" aria-labelledby="firewallTitle">
+        <div class="card-head">
+          <h2 id="firewallTitle">Firewall Rules</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>IP</th>
+                <th>Action</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+            <tbody id="firewall"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card card--wide" aria-labelledby="trafficTitle">
+        <div class="card-head">
+          <h2 id="trafficTitle">Traffic Log</h2>
+        </div>
+        <div class="table-wrap table-wrap--scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>IP</th>
+                <th>Method</th>
+                <th>Path</th>
+                <th>Blocked</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="traffic"></tbody>
+          </table>
+        </div>
+      </section>
 
     </div>
 
-  </div>
+    <section class="toolbar" aria-label="Actions">
+      <button id="simulateBtn" class="btn btn--primary" type="button">Simulate Attack</button>
+      <span id="toolbarMessage" class="toolbar-message" role="status"></span>
+    </section>
+
+  </main>
 
   <script src="app.js"></script>
-  <script>
-    async function simulate() {
-      await fetch("http://127.0.0.1:8000/api/simulate/", {
-        method: "POST"
-      });
-
-      document.getElementById("live").innerHTML +=
-        "<p>⚠ Manual attack simulation triggered</p>";
-    }
-  </script>
 </body>
 
 </html>
