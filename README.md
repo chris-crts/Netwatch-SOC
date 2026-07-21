@@ -7,11 +7,11 @@ ________________________________________________________________________________
 
 ## SOC Dashboard Screenshots
 
-!(Backend/SOC_Sys/SOC_App/screenshots/1st_dash.png)
+![](Backend/SOC_Sys/SOC_App/screenshots/1st_dash.png)
 
-!(Backend/SOC_Sys/SOC_App/screenshots/2nd_dash.png)
+![](Backend/SOC_Sys/SOC_App/screenshots/2nd_dash.png)
 
-!(Backend/SOC_Sys/SOC_App/screenshots/3rd_dash.png)
+![](Backend/SOC_Sys/SOC_App/screenshots/3rd_dash.png)
 
 ____________________________________________________________________________________________________________________________
 Architecture
